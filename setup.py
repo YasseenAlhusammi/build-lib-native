@@ -6,7 +6,6 @@ setup(
     packages=find_packages(),
     install_requires=[
         'firebase-admin',
-        'pyzbar',
     ],
     python_requires='>=3.6',
 )
