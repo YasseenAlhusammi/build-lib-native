@@ -32,6 +32,11 @@ jobs:
           fi
           cat requirements.txt
 
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libiconv-hook-dev  # تثبيت مكتبة libiconv
+
       - name: Install Python Dependencies
         run: |
           python3 -m venv .venv
