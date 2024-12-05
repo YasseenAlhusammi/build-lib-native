@@ -39,9 +39,11 @@ jobs:
           source .venv/bin/activate
           pip install --upgrade pip
           pip install maturin
-          # Use GITHUB_TOKEN for authentication when installing from GitHub
+          # تثبيت OpenCV
+          pip install opencv-python
+          # استخدام GITHUB_TOKEN للمصادقة
           git config --global url."https://${{ secrets.GITHUB_TOKEN }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
-          pip install git+https://github.com/flet-dev/python-for-android.git@3.11.6 || pip install python-for-android  # Fall back to PyPI if needed
+          pip install git+https://github.com/flet-dev/python-for-android.git@3.11.6 || pip install python-for-android
           pip install --upgrade cython pipgrip
 
       - name: Extract dependencies with pipgrip
