@@ -39,7 +39,7 @@ jobs:
           source .venv/bin/activate
           pip install --upgrade pip
           pip install maturin
-          # تثبيت OpenCV
+          # تثبيت OpenCV بشكل صحيح
           pip install opencv-python
           # استخدام GITHUB_TOKEN للمصادقة
           git config --global url."https://${{ secrets.GITHUB_TOKEN }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
