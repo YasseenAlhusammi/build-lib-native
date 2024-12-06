@@ -44,8 +44,6 @@ jobs:
           source .venv/bin/activate
           pip install --upgrade pip
           pip install maturin
-          pip install opencv-python
-          pip install pyzbar  # إضافة مكتبة pyzbar
           # استخدام GITHUB_TOKEN للمصادقة
           git config --global url."https://${{ secrets.GITHUB_TOKEN }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
           pip install git+https://github.com/kivy/python-for-android.git@develop || pip install python-for-android
