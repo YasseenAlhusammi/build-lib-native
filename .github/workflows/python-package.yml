@@ -83,9 +83,41 @@ jobs:
           source .venv/bin/activate  # Activate virtual environment
           p4a create --requirements=$(paste -s -d, pipgrip.lock) --arch arm64-v8a --arch armeabi-v7a --arch x86_64 --sdk-dir $ANDROID_SDK_ROOT --ndk-dir $ANDROID_NDK_HOME --dist-name mydist
 
+      - name: List files in WHL directory
+        run: |
+          ls -l /home/runner/.local/share/python-for-android/dists/mydist/dist/
+
+      - name: Check for existing WHL file
+        id: check_whl
+        run: |
+          WHL_DIR="/home/runner/.local/share/python-for-android/dists/mydist/dist/"
+          if [ -d "$WHL_DIR" ] && [ "$(ls -A $WHL_DIR)" ]; then
+            echo "WHL files found."
+            echo "exists=true" >> $GITHUB_ENV
+          else
+            echo "No WHL files found."
+            echo "exists=false" >> $GITHUB_ENV
+          fi
+
+      - name: Prepare setup.py
+        run: |
+          echo "from setuptools import setup, find_packages" > setup.py
+          echo "setup(" >> setup.py
+          echo "    name='your_package_name'," >> setup.py
+          echo "    version='0.1'," >> setup.py
+          echo "    packages=find_packages()," >> setup.py
+          echo "    install_requires=['dependency1', 'dependency2']," >> setup.py  # أضف التبعيات الفعلية هنا
+          echo ")" >> setup.py
+
+      - name: Build WHL if not found
+        if: env.exists == 'false'
+        run: |
+          echo "Attempting to create a WHL file..."
+          cd /home/runner/.local/share/python-for-android/dists/mydist
+          python3 setup.py bdist_wheel
+
       - name: Copy WHL file
         run: |
-          # Assuming the WHL file is generated in the following directory
           WHL_DIR="/home/runner/.local/share/python-for-android/dists/mydist/dist/"
           PACKAGE_NAME=$(head -n 1 requirements.txt | cut -d'=' -f1)
           PACKAGE_VERSION=$(head -n 1 requirements.txt | grep -oP '(?<===)[\d.]+')
