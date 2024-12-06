@@ -1,4 +1,5 @@
 firebase-admin
 pyzbar
+libiconv-hook-dev
 zbar
 python-iconv
