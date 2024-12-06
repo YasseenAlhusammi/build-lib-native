@@ -35,6 +35,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
+          sudo apt-get install -y gettext
           sudo apt-get install -y libiconv-hook-dev autoconf automake
 
       - name: Install Python Dependencies
