@@ -85,27 +85,25 @@ jobs:
 
       - name: Create setup.py
         run: |
-          cat <<EOF > /home/runner/.local/share/python-for-android/dists/mydist/setup.py
-from setuptools import setup, find_packages
+          echo 'from setuptools import setup, find_packages
 
 setup(
-    name='mydist_my_pyzbar',
-    version='0.1.0',
-    description='A Python package for mydist with pyzbar integration',
-    author='Your Name',
-    author_email='your.email@example.com',
+    name="mydist_my_pyzbar",
+    version="0.1.0",
+    description="A Python package for mydist with pyzbar integration",
+    author="Your Name",
+    author_email="your.email@example.com",
     packages=find_packages(),
     install_requires=[
         # أضف أي متطلبات هنا
     ],
     classifiers=[
-        'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: OS Independent',
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
-)
-EOF
+    python_requires=">=3.6",
+)' > /home/runner/.local/share/python-for-android/dists/mydist/setup.py
 
       - name: Rename and move the wheel file
         run: |
