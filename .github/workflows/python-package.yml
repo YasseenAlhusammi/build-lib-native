@@ -28,7 +28,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y gettext
-          sudo apt-get install -y libiconv-hook-dev autoconf automake libtool  # إضافة libtool
+          sudo apt-get install -y libiconv-hook-dev autoconf automake libtool pkg-config  # إضافة pkg-config
           sudo apt-get install -y ccache
 
       - name: Install Python Dependencies
