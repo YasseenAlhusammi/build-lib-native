@@ -1,4 +1,3 @@
-
 name: Build and Download Native Lib Package
 
 on:
@@ -74,7 +73,7 @@ jobs:
         id: build_package
         run: |
           source .venv/bin/activate  # Activate virtual environment
-          p4a create --requirements=$(paste -s -d, pipgrip.lock) --arch arm64-v8a --arch armeabi-v7a --arch x86_64 --sdk-dir $ANDROID_SDK_ROOT --ndk-dir $ANDROID_NDK_HOME --dist-name mydist
+          p4a create --requirements=$(paste -s -d, pipgrip.lock) --arch arm64-v8a --arch armeabi-v7a --arch x86_64 --sdk-dir $ANDROID_SDK_ROOT --ndk-dir $ANDROID_NDK_HOME --dist-name mydist --include zbar
       - name: Zip mydist folder
         run: |
           cd /home/runner/.local/share/python-for-android/dists
