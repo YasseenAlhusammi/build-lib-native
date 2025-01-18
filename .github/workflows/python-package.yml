@@ -24,20 +24,12 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Upload requirements.txt
-        run: |
-          if [ ! -f requirements.txt ]; then
-            echo "requirements.txt not found!"
-            exit 1
-          fi
-          cat requirements.txt
-
       - name: Install Dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y gettext
-          sudo apt-get install -y libiconv-hook-dev autoconf automake
-          sudo apt-get install -y ccache  # تثبيت ccache لتحسين الأداء
+          sudo apt-get install -y libiconv-hook-dev autoconf automake libtool  # إضافة libtool
+          sudo apt-get install -y ccache
 
       - name: Install Python Dependencies
         run: |
@@ -82,7 +74,7 @@ jobs:
         id: build_package
         run: |
           source .venv/bin/activate  # Activate virtual environment
-          p4a create --requirements=$(paste -s -d, pipgrip.lock) --arch arm64-v8a --arch armeabi-v7a --arch x86_64 --sdk-dir $ANDROID_SDK_ROOT --ndk-dir $ANDROID_NDK_HOME --ndk-api 24 --dist-name mydist  # تحديد NDK API
+          p4a create --requirements=$(paste -s -d, pipgrip.lock) --arch arm64-v8a --arch armeabi-v7a --arch x86_64 --sdk-dir $ANDROID_SDK_ROOT --ndk-dir $ANDROID_NDK_HOME --ndk-api 24 --dist-name mydist
 
       - name: Zip mydist folder
         run: |
